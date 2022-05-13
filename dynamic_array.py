@@ -1,8 +1,8 @@
-from typing import Callable, Optional, Any
+from typing import Callable, Optional, Any, List
 import copy
 
 
-def from_list(lst: list[Optional[int]]) -> Any:
+def from_list(lst: List[Optional[int]]) -> Any:
     """
     Convert list to dynamic array
     :param lst:
@@ -12,6 +12,38 @@ def from_list(lst: list[Optional[int]]) -> Any:
     for i in lst:
         dynamic_array.add(i)
     return dynamic_array
+
+
+def concat(dynamic_array1: 'DynamicArray', dynamic_array2: 'DynamicArray') -> 'DynamicArray':
+    """ Merge two dynamic arrays """
+    new_dynamic = DynamicArray(dynamic_array1.size() + dynamic_array2.size())
+    for i in dynamic_array1.to_list():
+        new_dynamic.add(i)
+    for k in dynamic_array2.to_list():
+        dynamic_array1.add(k)
+    return new_dynamic
+
+
+class DArrayIterator:
+
+    def __init__(self, lst: List[int]):
+        self.__index = -1
+        self.__chunk = lst
+        self.__size = lst.__len__()
+
+    def hasNext(self) -> bool:
+        """Determine whether the iterator still has elements"""
+        return self.__index < self.__size - 1
+
+    def next(self) -> Optional[int]:
+        """
+        Returns the current element of the iterator
+        :return:current element
+        """
+        if self.__index > self.__size - 2:
+            return None
+        self.__index += 1
+        return self.__chunk[self.__index]
 
 
 class DynamicArray(object):
@@ -26,8 +58,14 @@ class DynamicArray(object):
         self.__grow_factor = grow_factor
         self.__size = 0
         self.__capacity = capacity
-        self.__chunk: list[Optional[int]] = [None] * self.__capacity
-        self.__index = -1
+        self.__chunk: List[Optional[int]] = [None] * self.__capacity
+
+    def to_iterator(self) -> 'DArrayIterator':
+        """
+        Convert a dynamic array to an iterator
+        :return: an iterator
+        """
+        return DArrayIterator(self.__chunk)
 
     def copy(self) -> 'DynamicArray':
         """
@@ -37,9 +75,15 @@ class DynamicArray(object):
         new_dynamic = copy.deepcopy(self)
         return new_dynamic
 
-    def to_list(self) -> list[Optional[int]]:
+    def to_list(self) -> List[int]:
         """ Transform the array to a list """
-        return [self.__chunk[i] for i in range(self.__size)]
+        lst: List[int] = []
+        for i in self.__chunk:
+            if i is not None:
+                lst.append(i)
+            else:
+                break
+        return lst
 
     def add(self, element: Optional[int]) -> 'DynamicArray':
         """ Add an element at the end of the array"""
@@ -112,60 +156,29 @@ class DynamicArray(object):
                 new_dynamic.remove(i)
         return new_dynamic
 
-    def map(self, function: Callable[..., int], *iters: tuple['DynamicArray', ...]) -> None:
-        """ Applied function to every item of instances of DynamicArray,
-         yielding the results. If additional instance arguments are passed,
-         function must take that many arguments and is applied to the items
-         from all instances in parallel. With multiple instances, the map
-         stops when the shortest instance is exhausted.
-         """
-        if self.__size == 0:
-            pass
-        if len(iters) > 0:
-            i = 0
-            for args in zip(*iters):
-                if i < self.__size:
-                    self.__chunk[i] = function(self.__chunk[i], *args)
-                    i += 1
-            if i < self.__size:
-                for j in range(self.__size - 1, i - 1, -1):
-                    self.remove(j)
-        else:
-            for i in range(self.__size):
-                self.__chunk[i] = function(self.__chunk[i])
+    def map(self, function: Callable[[Any], int]) -> 'DynamicArray':
+        """ Applies a function to each element in a dynamic array"""
+        new_dynamic = copy.deepcopy(self)
+        i = 0
+        while i < new_dynamic.size():
+            new_dynamic.__chunk[i] = function(new_dynamic.__chunk[i])
+        return new_dynamic
 
     def reduce(self, function: Callable[[Optional[int], Optional[int]], int],
-               initial: Optional[int] = None) -> Optional[int]:
+               initial_state: Optional[int] = None) -> Optional[int]:
         """ Apply function of two arguments cumulatively to the items of the array,
             from left to right, to reduce the array to a single value.
-
-        :param function: Callable.
-        :param initial: If the optional initializer is present, it is placed before
-            the items of the array in the calculation, and serves as a default
-            when the array is empty. If initializer is not given and array
-            contains only one item, the first item is returned.
         """
-        it = iter(self)
-        if initial is None:
-            try:
-                value = next(it)
-            except StopIteration:
-                raise TypeError("reduce() of empty sequence with no "
-                                "initial value") from None
-        else:
-            value = initial
-
-        for element in it:
-            value = function(value, element)
-        return value
-
-    def __add__(self, other: 'DynamicArray') -> 'DynamicArray':
-        """ Operator '+' overloading, concat self with other instance of DynamicArray. """
-        if type(other) != DynamicArray:
-            raise Exception('The type of concatenation is not DynamicArray!')
-        for k in other:
-            self.add(k)
-        return self
+        if self.size() == 0:
+            return None
+        state = initial_state
+        for element in self.__chunk:
+            if element is not None:
+                state = function(state, element)
+            else:
+                break
+        return state
 
 
-ls = [1, 1, 1, None]
+ls = [1, 1, 1, None, 5, 8, 7, 1]
+print(ls.__sizeof__())
