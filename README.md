@@ -1,4 +1,5 @@
 # CPO_2021_dynamic_array
+
 ## Project structure
 
 - `dynamic_array.py` -- includes class `DynamicArray` with methods `__eq__` and `__str__`,
