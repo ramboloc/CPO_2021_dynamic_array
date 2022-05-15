@@ -1,51 +1,92 @@
-# CPO_2021_dynamic_array
+# SA Spade A - lab 2 - variant 2
+
+## Laboratory work description
+
+* Design algorithms and data structures in immutable styles
+* Usage of recursion
+* Develop unit and property-based tests
 
 ## Project structure
 
-- `dynamic_array.py` -- includes class `DynamicArray` with methods `__eq__` and `__str__`,
-  class `DynamicArrayIterator` with `__iter__` and `__next__`,
-   and functions `cons`, `remove`, `length`, `member`, `reverse`, `set`,
-   `to_list`, `from_list`,
-   `find`, `filter`, `map`, `reduce`, `iterator`, `empty`, and `concat`.
-
+- `dynamic_array.py` -- includes class `DynamicArray` and class `DArrayIterator` 
+  
 - `dynamic_array_test.py` -- unit and PBT tests for classes and functions in `dynamic_array.py`.
 
 ## Features
 
-- `cons(lst, v)`: copy array `lst` as a new one and add
-  a new element `v` to the end of the new.
-   If `capacity == length`,it will allocate a new chunk of memory
-   by user-specified growing factor.
-- `remove(lst, pos)`: keep `lst` constant, return a new array
-  that remove element at `pos`.
-- `length(lst)`: return the length of `lst`.
-- `member(lst, v)`: return a boolean indicating whether
-  the element `v` is a member of `lst`.
-- `reverse(lst)`:  keep `lst` constant, return a reverse array of `lst`.
-- `set(lst, pos, v)`: copy array `lst` as a new one and
-  set a new element `v` at `pos`.
-- `to_list(lst)`: convert `lst` to built-in `list`.
-- `from_list(list)`: convert from built-in `list`.
-- `find(lst, pred)`: find element by specific predicate, return a boolean value.
-- `filter(pred, lst)`: keep `lst` constant, filter data structure by specific predicate.
-- `map(func, *iters)`: map elements of arrays by specific function,
-  return a new array and keep `*iters` constant.
-- `reduce(func, lst, initializer=None)`: process elements of the array `lst` to
-  build a return value by
-   specific function.
-- `iterator(lst)`: return an iterator of `lst`.
-- `empty()`: return an empty instance of `DynamicArray`.
-- `concat(lst1, lst2)`: keep `lst1` and `lst2` constant,
-  return a new array of two arrays concatenate.
+- `cons(self, element)`:Add an element at the end of the array.
+
+- `remove(self, pos)`: Remove an element of array at specified position.
+
+- `length(self)`: Return the length of array.
+
+- `member(self, value)`: Determines whether the given value is a 
+
+  member of the array.
+
+- `reverse(self)`:  Reverse the array.
+
+- `intersection(self, pos, value)`: Add an element into the array 
+  
+  at specified position.
+  
+- `to_list(self)`: Transform the array to a list.
+
+- `from_list(lst)`: Convert list to dynamic array.
+
+- `find(self, p)`: find element by specific predicate, return a boolean value.
+
+- `filter(self, predicate)`: Filter the array by specific predicate.
+
+- `map(self,function)`: Applies a function to each element in a dynamic array.
+
+- `reduce(self,function)`: Apply function of two arguments cumulatively to
+  
+  the items of the array,from left to right, to reduce the array to a single value.
+  
+- `iterator(self)`: Convert a dynamic array to an iterator.
+
+- `empty(self)`: return an empty instance of `DynamicArray`.
+
+- `concat(dynamic_array1, dynamic_array2)`: Merge two dynamic arrays.
 
 ## Contribution
 
+- Wu Bin 
+  * GitHub repository created
+  * write `dynamic_array.py`
+  * solve bugs
+- Li Jingwen -- writing README.md
+  * write `dynamic_array_test.py`
+  * write `README.md`
+
 ## Changelog
+
+- 15.5.2022  -3
+  - Li Jingwen commits codes.
+- 13.5.2022 -2
+  - Wu Bin commits codes.
+- 12.5.2022 -1
+  - Build the project framework.
 
 ## Design notes
 
-### Implementation restrictions
-
-None
-
 ### Compare mutable and immutable implementation
+
+* A mutable collection can be updated or extended in place. This means you can change, 
+
+  add, or remove elements of a collection as a side effect. *Immutable* collections,
+
+  by contrast, never change. You have still operations that simulate additions,
+
+  removals, or updates, but those operations will in each case return a new
+
+  collection and leave the old collection unchanged.
+
+* The immutable data structure allows a developer to work with data safely from many places and
+  processes without any surprises with broken states or unexpected data changes. It is all about a
+  place where a programmer manages the state. It is a data structure internals for mutable data, and
+  all changes are implicit (you can recognize them only by method name). For immutable data – is
+  a variable inside your code. If you need to update a state, you should reassign the variable in your
+  source code to the immutable version. It may be verbose but explicit and controllable.
+
