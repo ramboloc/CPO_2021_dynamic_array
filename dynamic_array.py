@@ -24,7 +24,7 @@ def concat(dynamic_array1: 'DynamicArray', dynamic_array2: 'DynamicArray') -> 'D
     return new_dynamic
 
 
-class DArrayIterator:
+class DArrayIterator(object):
 
     def __init__(self, lst: List[int]):
         self.__index = -1
@@ -60,7 +60,7 @@ class DynamicArray(object):
         self.__capacity = capacity
         self.__chunk: List[Optional[int]] = [None] * self.__capacity
 
-    def to_iterator(self) -> 'DArrayIterator':
+    def iterator(self) -> 'DArrayIterator':
         """
         Convert a dynamic array to an iterator
         :return: an iterator
@@ -85,7 +85,7 @@ class DynamicArray(object):
                 break
         return lst
 
-    def add(self, element: Optional[int]) -> 'DynamicArray':
+    def cons(self, element: Optional[int]) -> 'DynamicArray':
         """ Add an element at the end of the array"""
         new_dynamic = self.copy()
         if new_dynamic.__size == new_dynamic.__capacity:
@@ -98,7 +98,7 @@ class DynamicArray(object):
         new_dynamic.__size += 1
         return new_dynamic
 
-    def set(self, pos: int, value: Optional[int]) -> 'DynamicArray':
+    def intersection(self, pos: int, value: Optional[int]) -> 'DynamicArray':
         """ Add an element into the array at specified position
         :param pos: Index of the array
         :param value: The value of element, int or None
@@ -123,7 +123,7 @@ class DynamicArray(object):
         new_dynamic.__size -= 1
         return new_dynamic
 
-    def size(self) -> int:
+    def length(self) -> int:
         """ Return the length of array. """
         return self.__size
 
@@ -179,6 +179,25 @@ class DynamicArray(object):
                 break
         return state
 
+    def find(self, p):
+        for k in self:
+            if p(k):
+                return True
+        return False
+    
+    def empty(self):
+        return DynamicArray()
+
+    def __eq__(self, other):
+        if self.__size != other.length():
+            return False
+        for a, b in zip(self, other):
+            if a != b:
+                return False
+        return True
+
+    def __str__(self):
+        return str(self.__chunk[:self.__size])
 
 ls = [1, 1, 1, None, 5, 8, 7, 1]
 print(ls.__sizeof__())
