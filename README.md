@@ -62,9 +62,11 @@
   collection and leave the old collection unchanged.
 * The immutable data structure allows a developer to work with data safely from many
   places and processes without any surprises with broken states or unexpected data
-  changes. It is all about a place where a programmer manages the state. It is a data
-  structure internals for mutable data, and all changes are implicit (you can recognize
-  them only by method name). For immutable data – is a variable inside your code.
+  changes. It is all about a place where a programmer manages the state. It is a
+  data structure internals for mutable data, and all changes are implicit
+  (you can recognize them only by method name).
+  For immutable data – is a variable inside your code.
   If you need to update a state, you should reassign the variable in your
-  source code to the immutable version. It may be verbose but explicit and controllable.
+  source code to the immutable version. It may be verbose but explicit
+  and controllable.
 
