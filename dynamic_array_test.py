@@ -2,19 +2,16 @@ import unittest
 from hypothesis import given
 import hypothesis.strategies as st
 from typing import Any, List
-from dynamic_array import DynamicArray,DArrayIterator
-from dynamic_array import cons, remove, length, member
-from dynamic_array import reverse, intersection, to_list, from_list
-from dynamic_array import find, filter, map, reduce
-from dynamic_array import iterator, empty, concat
+from dynamic_array import *
+
 
 class TestDynamicArray(unittest.TestCase):
 
     def test_api(self):
-        empty = DynamicArray()
+        empty = DynamicArray(0)
 
-        l1 = cons(cons(empty, 1), None)
-        l2 = cons(cons(empty, None), 1)
+        l1 = empty.cons(1).cons(None)
+        l2 = empty.cons(None)
         self.assertEqual(str(empty), "[]")
         self.assertEqual(str(l1), "[1, None]")
         self.assertEqual(str(l2), "[None, 1]")
@@ -97,7 +94,7 @@ class TestDynamicArray(unittest.TestCase):
         result = list(gt_map(lambda x, y: x * y, a, b))
         arr2 = from_list(b)
         self.assertEqual(to_list(map(lambda x, y: x * y, arr1, arr2)), result)
-        arr3= from_list(c)
+        arr3 = from_list(c)
         result = list(gt_map(lambda x, y, z: x * y - z, a, b, c))
         self.assertEqual(to_list(map(lambda x, y, z: x * y - z, arr1,
                                      arr2, arr3)), result)
@@ -125,7 +122,7 @@ class TestDynamicArray(unittest.TestCase):
     def test_iterator(self):
         x = [2, 4, 6]
         l = from_list(x)
-        t= []
+        t = []
         try:
             i = iterator(l)
             while hasNext(i):
@@ -157,7 +154,3 @@ class TestDynamicArray(unittest.TestCase):
         a = from_list(lst)
         self.assertEqual(concat(empty(), a), a)
         self.assertEqual(concat(a, empty()), a)
-
-
-
-

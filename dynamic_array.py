@@ -10,17 +10,17 @@ def from_list(lst: List[Optional[int]]) -> Any:
     """
     dynamic_array = DynamicArray(lst.__len__())
     for i in lst:
-        dynamic_array.add(i)
+        dynamic_array.cons(i)
     return dynamic_array
 
 
 def concat(dynamic_array1: 'DynamicArray', dynamic_array2: 'DynamicArray') -> 'DynamicArray':
     """ Merge two dynamic arrays """
-    new_dynamic = DynamicArray(dynamic_array1.size() + dynamic_array2.size())
+    new_dynamic = DynamicArray(dynamic_array1.length() + dynamic_array2.length())
     for i in dynamic_array1.to_list():
-        new_dynamic.add(i)
+        new_dynamic.cons(i)
     for k in dynamic_array2.to_list():
-        dynamic_array1.add(k)
+        dynamic_array1.cons(k)
     return new_dynamic
 
 
@@ -44,6 +44,11 @@ class DArrayIterator(object):
             return None
         self.__index += 1
         return self.__chunk[self.__index]
+
+
+def empty() -> 'DynamicArray':
+    """clean all data from the datastruct"""
+    return DynamicArray(0)
 
 
 class DynamicArray(object):
@@ -160,7 +165,7 @@ class DynamicArray(object):
         """ Applies a function to each element in a dynamic array"""
         new_dynamic = copy.deepcopy(self)
         i = 0
-        while i < new_dynamic.size():
+        while i < new_dynamic.length():
             new_dynamic.__chunk[i] = function(new_dynamic.__chunk[i])
         return new_dynamic
 
@@ -169,7 +174,7 @@ class DynamicArray(object):
         """ Apply function of two arguments cumulatively to the items of the array,
             from left to right, to reduce the array to a single value.
         """
-        if self.size() == 0:
+        if self.length() == 0:
             return None
         state = initial_state
         for element in self.__chunk:
@@ -179,19 +184,21 @@ class DynamicArray(object):
                 break
         return state
 
-    def find(self, p):
-        for k in self:
+    def find(self, p: Callable[[Optional[int]], bool]) -> bool:
+        """"""
+        for k in self.__chunk:
             if p(k):
                 return True
         return False
-    
-    def empty(self):
-        return DynamicArray()
 
-    def __eq__(self, other):
-        if self.__size != other.length():
+    def __eq__(self, other: 'DynamicArray') -> bool:
+        """
+        Return True if those tow DynamicArray is equal
+        All built-in properties should be equal
+        """
+        if self.__size != other.length() or self.__capacity != other.__capacity:
             return False
-        for a, b in zip(self, other):
+        for a, b in zip(self.__chunk, other.__chunk):
             if a != b:
                 return False
         return True
@@ -199,5 +206,9 @@ class DynamicArray(object):
     def __str__(self):
         return str(self.__chunk[:self.__size])
 
+
 ls = [1, 1, 1, None, 5, 8, 7, 1]
-print(ls.__sizeof__())
+s=str("sdasdas")
+s.index()
+ls.clear()
+print(ls)
