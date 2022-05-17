@@ -13,7 +13,7 @@ class DArrayIterator(object):
         """Determine whether the iterator still has elements"""
         return self.__index < self.__size - 1
 
-    def __next__(self) -> int:
+    def __next__(self) -> Optional[int]:
         """
         Returns the current element of the iterator
         :return:current element
@@ -172,7 +172,7 @@ class DynamicArray(object):
         return new_dynamic
 
     def reduce(self, function: Callable[[Optional[int], Optional[int]], int],
-               initial_state: int = 0) -> int:
+               initial_state: int = 0) -> Optional[int]:
         """
         Apply function of two arguments cumulatively to the items of the array,
         from left to right, to reduce the array to a single value
@@ -187,13 +187,13 @@ class DynamicArray(object):
                 break
         return state
 
-    def find(self, p: Callable[[Optional[int]], bool]) -> List[int]:
+    def find(self, p: Callable[[Optional[int]], bool]) -> List[Optional[int]]:
         """
         find all element in the dynamic array in condition p
         :param p: Screening conditions
         :return: a list contain all element in condition p
         """
-        lst: List[int] = []
+        lst: List[Optional[int]] = []
         for k in self.__chunk:
             if p(k):
                 lst.append(k)
@@ -260,7 +260,7 @@ def iterator(self: 'DynamicArray') -> 'DArrayIterator':
     return self.iterator()
 
 
-def to_list(self: 'DynamicArray') -> List[int]:
+def to_list(self: 'DynamicArray') -> List[Optional[int]]:
     """
     External functions for to_list() use in unit testing
     """
@@ -318,7 +318,7 @@ def map(self: 'DynamicArray', function: Callable[[Any], int]) \
 
 def reduce(self: 'DynamicArray', function: Callable[[Optional[int],
                                                      Optional[int]], int],
-           initial_state: Optional[int] = None) -> int:
+           initial_state: Optional[int] = None) -> Optional[int]:
     """
     External functions for reduce() use in unit testing
     """
