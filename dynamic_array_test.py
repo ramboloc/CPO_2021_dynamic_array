@@ -1,5 +1,5 @@
 import unittest
-from typing import List, Sequence
+from typing import Sequence
 
 from hypothesis import given
 import hypothesis.strategies as st
