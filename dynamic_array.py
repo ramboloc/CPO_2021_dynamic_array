@@ -142,7 +142,7 @@ class DynamicArray(object):
             left += 1
         return new_dynamic
 
-    def filter(self, predicate: Callable[[Optional[int]],
+    def filter(self, predicate: Callable[[int],
                                          bool]) -> 'DynamicArray':
         """
         Filter the array by specific predicate
@@ -187,13 +187,13 @@ class DynamicArray(object):
                 break
         return state
 
-    def find(self, p: Callable[[Optional[int]], bool]) -> List[Optional[int]]:
+    def find(self, p: Callable[[int], bool]) -> List[Optional[int]]:
         """
         find all element in the dynamic array in condition p
         :param p: Screening conditions
         :return: a list contain all element in condition p
         """
-        lst: List[Optional[int]] = []
+        lst: List[int] = []
         for k in self.__chunk:
             if p(k):
                 lst.append(k)
@@ -300,7 +300,7 @@ def reverse(self: 'DynamicArray') -> 'DynamicArray':
     return self.reverse()
 
 
-def filter(self: 'DynamicArray', predicate: Callable[[Optional[int]],
+def filter(self: 'DynamicArray', predicate: Callable[[int],
                                                      bool]) -> 'DynamicArray':
     """
     External functions for filter() use in unit testing
@@ -325,7 +325,7 @@ def reduce(self: 'DynamicArray', function: Callable[[int,
     return self.reduce(function, initial_state)
 
 
-def find(self: 'DynamicArray', p: Callable[[Optional[int]], bool]) \
+def find(self: 'DynamicArray', p: Callable[[int], bool]) \
         -> List[Optional[int]]:
     """
     External functions for find() use in unit testing
