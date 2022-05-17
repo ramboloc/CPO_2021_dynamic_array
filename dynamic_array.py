@@ -318,7 +318,7 @@ def map(self: 'DynamicArray', function: Callable[[Any], int]) \
 
 def reduce(self: 'DynamicArray', function: Callable[[Optional[int],
                                                      Optional[int]], int],
-           initial_state: int=0) -> Optional[int]:
+           initial_state: int = 0) -> Optional[int]:
     """
     External functions for reduce() use in unit testing
     """
