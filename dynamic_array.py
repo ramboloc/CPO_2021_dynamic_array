@@ -149,7 +149,7 @@ class DynamicArray(object):
         :param predicate: Screening conditions -> bool
         :return: A DynamicArray remove all element not fit predicate in order
         """
-        res: List[Optional[int]] = []
+        res: List[int] = []
         for i in range(self.__size - 1, -1, -1):
             if predicate(self.__chunk[i]):
                 res.append(self.__chunk[i])
@@ -187,7 +187,7 @@ class DynamicArray(object):
                 break
         return state
 
-    def find(self, p: Callable[[int], bool]) -> List[Optional[int]]:
+    def find(self, p: Callable[[int], bool]) -> Sequence
         """
         find all element in the dynamic array in condition p
         :param p: Screening conditions
@@ -195,6 +195,8 @@ class DynamicArray(object):
         """
         lst: List[int] = []
         for k in self.__chunk:
+            if k is None:
+                break
             if p(k):
                 lst.append(k)
         return lst
