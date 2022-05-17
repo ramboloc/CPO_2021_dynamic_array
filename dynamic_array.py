@@ -1,4 +1,4 @@
-from typing import Callable, Optional, Any, List
+from typing import Callable, Optional, Any, List, Sequence
 import copy
 
 
@@ -218,7 +218,7 @@ class DynamicArray(object):
         return str(self.to_list())
 
 
-def from_list(lst: List[Optional[int]]) -> Any:
+def from_list(lst: Sequence) -> 'DynamicArray':
     """
     Convert list to dynamic array
     :param lst:
