@@ -172,7 +172,7 @@ class DynamicArray(object):
         return new_dynamic
 
     def reduce(self, function: Callable[[Optional[int], Optional[int]], int],
-               initial_state: int = 0) -> Optional[int]:
+               initial_state: int = 0) -> int:
         """
         Apply function of two arguments cumulatively to the items of the array,
         from left to right, to reduce the array to a single value
@@ -318,7 +318,7 @@ def map(self: 'DynamicArray', function: Callable[[Any], int]) \
 
 def reduce(self: 'DynamicArray', function: Callable[[Optional[int],
                                                      Optional[int]], int],
-           initial_state: int = 0) -> Optional[int]:
+           initial_state: int = 0) -> int:
     """
     External functions for reduce() use in unit testing
     """
