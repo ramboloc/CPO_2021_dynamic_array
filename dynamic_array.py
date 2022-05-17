@@ -151,7 +151,8 @@ class DynamicArray(object):
         """
         res: List[int] = []
         for i in range(self.__size - 1, -1, -1):
-            assert i is not None
+            if i is None:
+                raise TypeError("element can not be None in domain < size")
             if predicate(self.__chunk[i]):
                 res.append(self.__chunk[i])
         res.reverse()
