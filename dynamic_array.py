@@ -318,7 +318,7 @@ def map(self: 'DynamicArray', function: Callable[[Any], int]) \
 
 def reduce(self: 'DynamicArray', function: Callable[[Optional[int],
                                                      Optional[int]], int],
-           initial_state: Optional[int] = None) -> Optional[int]:
+           initial_state: int=0) -> Optional[int]:
     """
     External functions for reduce() use in unit testing
     """
@@ -326,14 +326,14 @@ def reduce(self: 'DynamicArray', function: Callable[[Optional[int],
 
 
 def find(self: 'DynamicArray', p: Callable[[Optional[int]], bool]) \
-        -> List[int]:
+        -> List[Optional[int]]:
     """
     External functions for find() use in unit testing
     """
     return self.find(p)
 
 
-def next(self: 'DArrayIterator') -> int:
+def next(self: 'DArrayIterator') -> Optional[int]:
     """
     External functions for __next__() in DArrayIterator use in unit testing
     """
