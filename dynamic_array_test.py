@@ -128,3 +128,7 @@ class TestDynamicArray(unittest.TestCase):
         a = from_list(lst)
         self.assertEqual(concat(empty_(), a), a)
         self.assertEqual(concat(a, empty_()), a)
+
+
+if __name__ == '__main__':
+    unittest.main()

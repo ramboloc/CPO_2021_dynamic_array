@@ -143,11 +143,12 @@ class DynamicArray(object):
         :param predicate: Screening conditions -> bool
         :return: A DynamicArray remove all element not fit predicate in order
         """
-        new_dynamic = copy.deepcopy(self)
-        for i in range(new_dynamic.__size - 1, -1, -1):
-            if not predicate(new_dynamic.__chunk[i]):
-                new_dynamic = new_dynamic.remove(i)
-        return new_dynamic
+        res: List[Optional[int]] = []
+        for i in range(self.__size - 1, -1, -1):
+            if predicate(self.__chunk[i]):
+                res.append(self.__chunk[i])
+        res.reverse()
+        return from_list(res)
 
     def map(self, function: Callable[[Optional[int]], int]) -> 'DynamicArray':
         """
