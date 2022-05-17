@@ -1,5 +1,5 @@
 import unittest
-from typing import List
+from typing import List, Optional
 
 from hypothesis import given
 import hypothesis.strategies as st
@@ -86,7 +86,7 @@ class TestDynamicArray(unittest.TestCase):
         self.assertEqual(to_list(map(arr1, lambda x: x ** 3)), result)
 
     @given(st.lists(st.integers()), st.integers())
-    def test_reduce(self, a: List[int], b: int):
+    def test_reduce(self, a: List[Optional[int]], b: int):
         arr = from_list(a)
         if arr.length() == 0:
             self.assertEqual(b, reduce(arr, lambda x, y: x + y, b))

@@ -4,7 +4,7 @@ import copy
 
 class DArrayIterator(object):
 
-    def __init__(self, lst: List[int]):
+    def __init__(self, lst: List[Optional[int]]):
         self.__index = -1
         self.__chunk = lst
         self.__size = lst.__len__()
@@ -38,7 +38,7 @@ class DynamicArray(object):
         when the capacity of the dynamic array is insufficient each time
         """
         if capacity < 0:
-            raise "Bad capacity: " + str(capacity) + "<0,but should >0"
+            raise ImportError("Bad capacity: " + str(capacity) + "<0,but should >0")
         self.__grow_factor = grow_factor
         self.__size = 0
         self.__capacity = capacity
@@ -52,13 +52,13 @@ class DynamicArray(object):
         """
         return DArrayIterator(self.__chunk)
 
-    def to_list(self) -> List[int]:
+    def to_list(self) -> List[Optional[int]]:
         """
         Transform the array to a list
         Transform object: __chunk
         Only value is not None will be use
         """
-        lst: List[int] = []
+        lst: List[Optional[int]] = []
         for i in self.__chunk:
             lst.append(i)
         return lst
@@ -83,7 +83,7 @@ class DynamicArray(object):
                 new_dynamic.__chunk += [None] * (new_dynamic.__capacity -
                                                  self.__capacity)
             else:
-                raise "Bad capacity: " + str(self.__capacity) + "<0"
+                raise IndexError("Bad capacity: " + str(self.__capacity) + "<0")
         if element is None:
             pass
         else:
@@ -197,11 +197,13 @@ class DynamicArray(object):
                 lst.append(k)
         return lst
 
-    def __eq__(self, other: 'DynamicArray') -> bool:
+    def __eq__(self, other: object) -> bool:
         """
         Return True if those tow DynamicArray is equal
         All built-in properties should be equal
         """
+        if not isinstance(other, DynamicArray):
+            return NotImplemented
         if self.__size != other.size() or self.__capacity != other.__capacity:
             return False
         for a, b in zip(self.__chunk, other.__chunk):
@@ -314,7 +316,7 @@ def map(self: 'DynamicArray', function: Callable[[Any], int]) \
 
 def reduce(self: 'DynamicArray', function: Callable[[Optional[int],
                                                      Optional[int]], int],
-           initial_state: Optional[int] = None) -> Optional[int]:
+           initial_state: Optional[int] = None) -> int:
     """
     External functions for reduce() use in unit testing
     """
