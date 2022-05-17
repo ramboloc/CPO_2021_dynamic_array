@@ -120,7 +120,7 @@ class TestDynamicArray(unittest.TestCase):
     @given(st.lists(st.integers()),
            st.lists(st.integers()),
            st.lists(st.integers()))
-    def test_monoid(self, a:Sequence, b:Sequence, c:Sequence):
+    def test_monoid(self, a: Sequence, b: Sequence, c: Sequence):
         arr1 = from_list(a)
         arr2 = from_list(b)
         arr3 = from_list(c)
@@ -128,7 +128,7 @@ class TestDynamicArray(unittest.TestCase):
                          to_list(concat(arr1, concat(arr2, arr3))))
 
     @given(st.lists(st.integers()))
-    def test_monoid_identity(self, lst:Sequence):
+    def test_monoid_identity(self, lst: Sequence):
         a = from_list(lst)
         self.assertEqual(concat(empty_(), a), a)
         self.assertEqual(concat(a, empty_()), a)
