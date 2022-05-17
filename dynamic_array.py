@@ -46,7 +46,8 @@ class DynamicArray(object):
 
     def iterator(self) -> 'DArrayIterator':
         """
-        According to the built-in list chunk convert a dynamic array to an iterator
+        According to the built-in list chunk convert a dynamic array to
+        an iterator
         :return: an iterator
         """
         return DArrayIterator(self.__chunk)
@@ -303,22 +304,25 @@ def filter(self: 'DynamicArray', predicate: Callable[[Optional[int]],
     return self.filter(predicate)
 
 
-def map(self: 'DynamicArray', function: Callable[[Any], int]) -> 'DynamicArray':
+def map(self: 'DynamicArray', function: Callable[[Any], int]) \
+        -> 'DynamicArray':
     """
     External functions for map() use in unit testing
     """
     return self.map(function)
 
 
-def reduce(self: 'DynamicArray', function: Callable[[Optional[int], Optional[int]], int],
-           initial_state: Optional[int] = None) -> Optional[int]:
+def reduce(self: 'DynamicArray', function: Callable[[Optional[int],
+        Optional[int]], int], initial_state: Optional[int] = None) \
+        -> Optional[int]:
     """
     External functions for reduce() use in unit testing
     """
     return self.reduce(function, initial_state)
 
 
-def find(self: 'DynamicArray', p: Callable[[Optional[int]], bool]) -> List[int]:
+def find(self: 'DynamicArray', p: Callable[[Optional[int]], bool]) \
+        -> List[int]:
     """
     External functions for find() use in unit testing
     """
