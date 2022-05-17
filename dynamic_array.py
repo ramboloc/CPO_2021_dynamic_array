@@ -38,7 +38,8 @@ class DynamicArray(object):
         when the capacity of the dynamic array is insufficient each time
         """
         if capacity < 0:
-            raise ImportError("Bad capacity: " + str(capacity) + "<0,but should >0")
+            raise ImportError("Bad capacity: " +
+                              str(capacity) + "<0,but should >0")
         self.__grow_factor = grow_factor
         self.__size = 0
         self.__capacity = capacity
@@ -83,7 +84,8 @@ class DynamicArray(object):
                 new_dynamic.__chunk += [None] * (new_dynamic.__capacity -
                                                  self.__capacity)
             else:
-                raise IndexError("Bad capacity: " + str(self.__capacity) + "<0")
+                raise IndexError("Bad capacity: " +
+                                 str(self.__capacity) + "<0")
         if element is None:
             pass
         else:
