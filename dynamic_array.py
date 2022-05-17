@@ -74,13 +74,15 @@ class DynamicArray(object):
         new_dynamic = copy.deepcopy(self)
         if new_dynamic.__size == new_dynamic.__capacity:
             if new_dynamic.__capacity > 0:
-                new_dynamic.__capacity = new_dynamic.__capacity * new_dynamic.__grow_factor
-                new_dynamic.__chunk += [None] * (new_dynamic.__capacity - self.__capacity)
+                new_dynamic.__capacity *= new_dynamic.__grow_factor
+                new_dynamic.__chunk += [None] * (new_dynamic.__capacity -
+                                                 self.__capacity)
             elif new_dynamic.__capacity == 0:
                 new_dynamic.__capacity = 1
-                new_dynamic.__chunk += [None] * (new_dynamic.__capacity - self.__capacity)
+                new_dynamic.__chunk += [None] * (new_dynamic.__capacity -
+                                                 self.__capacity)
             else:
-                raise "Bad capacity: " + str(self.__capacity) + "<0,but should >0"
+                raise "Bad capacity: " + str(self.__capacity) + "<0"
         if element is None:
             pass
         else:
@@ -137,7 +139,8 @@ class DynamicArray(object):
             left += 1
         return new_dynamic
 
-    def filter(self, predicate: Callable[[Optional[int]], bool]) -> 'DynamicArray':
+    def filter(self, predicate: Callable[[Optional[int]],
+                                         bool]) -> 'DynamicArray':
         """
         Filter the array by specific predicate
         :param predicate: Screening conditions -> bool
@@ -222,9 +225,11 @@ def from_list(lst: List[Optional[int]]) -> Any:
     return dynamic_array
 
 
-def concat(dynamic_array1: 'DynamicArray', dynamic_array2: 'DynamicArray') -> 'DynamicArray':
+def concat(dynamic_array1: 'DynamicArray', dynamic_array2: 'DynamicArray') \
+        -> 'DynamicArray':
     """ Merge two dynamic arrays """
-    new_dynamic = DynamicArray(dynamic_array1.size() + dynamic_array2.size())
+    new_size = dynamic_array1.size() + dynamic_array2.size()
+    new_dynamic = DynamicArray(new_size)
     for i in dynamic_array1.to_list():
         if i is not None:
             new_dynamic = new_dynamic.cons(i)
@@ -290,7 +295,8 @@ def reverse(self: 'DynamicArray') -> 'DynamicArray':
     return self.reverse()
 
 
-def filter(self: 'DynamicArray', predicate: Callable[[Optional[int]], bool]) -> 'DynamicArray':
+def filter(self: 'DynamicArray', predicate: Callable[[Optional[int]],
+                                                     bool]) -> 'DynamicArray':
     """
     External functions for filter() use in unit testing
     """
