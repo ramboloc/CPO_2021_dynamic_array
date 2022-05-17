@@ -187,7 +187,7 @@ class DynamicArray(object):
                 break
         return state
 
-    def find(self, p: Callable[[int], bool]) -> Sequence
+    def find(self, p: Callable[[int], bool]) -> Sequence:
         """
         find all element in the dynamic array in condition p
         :param p: Screening conditions
