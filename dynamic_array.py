@@ -151,6 +151,7 @@ class DynamicArray(object):
         """
         res: List[int] = []
         for i in range(self.__size - 1, -1, -1):
+            assert i is not None
             if predicate(self.__chunk[i]):
                 res.append(self.__chunk[i])
         res.reverse()
@@ -328,7 +329,7 @@ def reduce(self: 'DynamicArray', function: Callable[[int,
 
 
 def find(self: 'DynamicArray', p: Callable[[int], bool]) \
-        -> List[Optional[int]]:
+        -> Sequence:
     """
     External functions for find() use in unit testing
     """
