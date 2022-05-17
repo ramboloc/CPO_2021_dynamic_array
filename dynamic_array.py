@@ -1,4 +1,4 @@
-from typing import Callable, Optional, Any, List, Iterable
+from typing import Callable, Optional, Any, List
 import copy
 
 

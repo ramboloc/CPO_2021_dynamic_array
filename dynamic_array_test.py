@@ -1,7 +1,10 @@
 import unittest
+from typing import List
+
 from hypothesis import given
 import hypothesis.strategies as st
-from dynamic_array import *
+from dynamic_array import iterator, empty_, cons, length, member, reduce
+from dynamic_array import remove, to_list, concat, from_list, reverse, find
 
 
 class TestDynamicArray(unittest.TestCase):
