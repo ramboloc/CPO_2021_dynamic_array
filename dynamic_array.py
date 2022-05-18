@@ -152,7 +152,7 @@ class DynamicArray(object):
         :param predicate: Screening conditions -> bool
         :return: A DynamicArray remove all element not fit predicate in order
         """
-        res: List[int] = []
+        res: List[Optional[int]] = []
         for i in self.iterator():
             if predicate(i):
                 res.append(i)
