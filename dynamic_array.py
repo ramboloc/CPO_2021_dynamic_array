@@ -339,7 +339,3 @@ def next(self: 'DArrayIterator') -> Optional[int]:
     External functions for __next__() in DArrayIterator use in unit testing
     """
     return self.__next__()
-
-ls=[1,1,2,3]
-l=from_list(ls).iterator()
-print(l)
