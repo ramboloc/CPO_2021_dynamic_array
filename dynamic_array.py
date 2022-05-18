@@ -153,11 +153,9 @@ class DynamicArray(object):
         :return: A DynamicArray remove all element not fit predicate in order
         """
         res: List[Optional[int]] = []
-        for i in range(self.__size - 1, -1, -1):
-            if i is None:
-                raise TypeError("element can not be None in domain < size")
-            if predicate(self.__chunk[i]):
-                res.append(self.__chunk[i])
+        for i in self.iterator():
+            if predicate(i):
+                res.append(i)
         res.reverse()
         return from_list(res)
 
