@@ -62,7 +62,7 @@ class TestDynamicArray(unittest.TestCase):
         self.assertEqual(to_list(from_list(a)), a)
 
     def test_find(self) -> None:
-        a: List[Optional[int]] = [2, 4, 4, 9, 5]
+        a: List[int] = [2, 4, 4, 9, 5]
         arr = from_list(a)
         self.assertEqual([], find(arr, lambda x: x is None))
         self.assertEqual([9], find(arr, lambda x: x % 3 == 0))
@@ -70,23 +70,23 @@ class TestDynamicArray(unittest.TestCase):
         self.assertEqual([9], find(arr, lambda x: x == 9))
 
     @given(st.lists(st.integers()))
-    def test_filter(self, a: List[Optional[int]]) -> None:
+    def test_filter(self, a: List[int]) -> None:
         from builtins import filter as gt_filter
         arr = from_list(a)
-        result = list(gt_filter(lambda x: x % 3 == 0, arr.iterator()))
+        result = list(gt_filter(lambda x: x % 3 == 0, a))
         self.assertEqual(to_list(filter(arr, lambda x: x % 3 == 0)), result)
-        result = list(gt_filter(lambda x: x % 3 != 0, arr.iterator()))
+        result = list(gt_filter(lambda x: x % 3 != 0, a))
         self.assertEqual(to_list(filter(arr, lambda x: x % 3 != 0)), result)
 
     @given(st.lists(st.integers()))
-    def test_map(self, a: List[Optional[int]]):
+    def test_map(self, a: List[int]):
         from builtins import map as gt_map
         arr1: 'DynamicArray' = from_list(a)
         result = list(gt_map(lambda x: x ** 3, a))
         self.assertEqual(to_list(map(arr1, lambda x: x ** 3)), result)
 
     @given(st.lists(st.integers()), st.integers())
-    def test_reduce(self, a: List[Optional[int]], b: int):
+    def test_reduce(self, a: List[int], b: int):
         arr = from_list(a)
         if arr.length() == 0:
             self.assertEqual(b, reduce(arr, lambda x, y: x + y, b))

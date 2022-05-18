@@ -1,5 +1,8 @@
 from typing import Callable, Optional, Any, List
 import copy
+from typing import Union
+
+UnionList = Union[List[Optional[int], List[int]]]
 
 
 class DArrayIterator(object):
@@ -219,7 +222,7 @@ class DynamicArray(object):
         return str(self.to_list())
 
 
-def from_list(lst: List[Optional[int]]) -> 'DynamicArray':
+def from_list(lst: UnionList) -> 'DynamicArray':
     """
     Convert list to dynamic array
     :param lst:
