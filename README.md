@@ -51,6 +51,7 @@
   * Build the project framework.
 
 ## Design notes
+
 * dynamic array should not have None element for index<=size，and None element just
    means the unallocated space. So None element can only exit in tail.
 * data type: the data type in data structure is int.
