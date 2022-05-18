@@ -114,14 +114,15 @@ class TestDynamicArray(unittest.TestCase):
 
     def test_empty(self) -> None:
         a = empty_()
-        b = from_list([])
+        k: List[Optional[int]] = []
+        b = from_list(k)
         self.assertEqual(a, b)
 
     @given(st.lists(st.integers()),
            st.lists(st.integers()),
            st.lists(st.integers()))
     def test_monoid(self, a: List[Optional[int]], b: List[Optional[int]],
-                    c:  List[Optional[int]]):
+                    c: List[Optional[int]]):
         arr1 = from_list(a)
         arr2 = from_list(b)
         arr3 = from_list(c)
