@@ -4,7 +4,7 @@ import copy
 
 class DArrayIterator(object):
 
-    def __init__(self, lst: List[Optional[int]]):
+    def __init__(self, lst: List[int]):
         self.__index = -1
         self.__chunk: List[int] = []
         for i in lst:
@@ -152,7 +152,7 @@ class DynamicArray(object):
         :param predicate: Screening conditions -> bool
         :return: A DynamicArray remove all element not fit predicate in order
         """
-        res: List[Optional[int]] = []
+        res: List[int] = []
         for i in self.iterator():
             if predicate(i):
                 res.append(i)
