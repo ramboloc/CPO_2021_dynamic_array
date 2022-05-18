@@ -6,8 +6,11 @@ class DArrayIterator(object):
 
     def __init__(self, lst: List[Optional[int]]):
         self.__index = -1
-        self.__chunk = lst
-        self.__size = lst.__len__()
+        self.__chunk: List[int] = []
+        for i in lst:
+            if i is not None:
+                self.__chunk += [i]
+        self.__size = self.__chunk.__len__()
 
     def hasNext(self) -> bool:
         """Determine whether the iterator still has elements"""
@@ -166,11 +169,11 @@ class DynamicArray(object):
         """
         if self.size() == 0:
             return self
-        new_dynamic = copy.deepcopy(self)
-        i = 0
-        while i < new_dynamic.size():
-            new_dynamic.__chunk[i] = function(new_dynamic.__chunk[i])
-            i += 1
+        new_dynamic = DynamicArray(self.__size)
+        for i in self.iterator():
+            new_dynamic = new_dynamic.cons(function(i))
+        new_dynamic.__chunk += [None] * (self.__capacity - self.__size)
+        new_dynamic.__capacity = self.__capacity
         return new_dynamic
 
     def reduce(self, function: Callable[[int, int], int],
@@ -341,3 +344,11 @@ def next(self: 'DArrayIterator') -> Optional[int]:
     External functions for __next__() in DArrayIterator use in unit testing
     """
     return self.__next__()
+
+
+ls = [1, 1, 1, 1, None, None]
+s = from_list(ls)
+for k in s.iterator():
+    print(k)
+for u in ls:
+    print(u)
