@@ -120,7 +120,8 @@ class TestDynamicArray(unittest.TestCase):
     @given(st.lists(st.integers()),
            st.lists(st.integers()),
            st.lists(st.integers()))
-    def test_monoid(self, a: List[Optional[int]], b: List[Optional[int]], c:  List[Optional[int]]):
+    def test_monoid(self, a: List[Optional[int]], b: List[Optional[int]],
+                    c:  List[Optional[int]]):
         arr1 = from_list(a)
         arr2 = from_list(b)
         arr3 = from_list(c)
