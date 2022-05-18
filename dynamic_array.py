@@ -142,14 +142,14 @@ class DynamicArray(object):
             left += 1
         return new_dynamic
 
-    def filter(self, predicate: Callable[[int],
+    def filter(self, predicate: Callable[[Optional[int]],
                                          bool]) -> 'DynamicArray':
         """
         Filter the array by specific predicate
         :param predicate: Screening conditions -> bool
         :return: A DynamicArray remove all element not fit predicate in order
         """
-        res: List[int] = []
+        res: List[Optional[int]] = []
         for i in range(self.__size - 1, -1, -1):
             if i is None:
                 raise TypeError("element can not be None in domain < size")
