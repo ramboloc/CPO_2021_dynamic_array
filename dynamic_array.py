@@ -161,7 +161,7 @@ class DynamicArray(object):
                 res.append(i)
         return from_list(res)
 
-    def map(self, function: Callable[[Optional[int]], int]) -> 'DynamicArray':
+    def map(self, function: Callable[[int], int]) -> 'DynamicArray':
         """
         Applies a function to each element in a dynamic array
         :param function: The function used to manipulate each element
