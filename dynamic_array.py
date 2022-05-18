@@ -304,7 +304,7 @@ def reverse(self: 'DynamicArray') -> 'DynamicArray':
     return self.reverse()
 
 
-def filter(self: 'DynamicArray', predicate: Callable[[int],
+def filter(self: 'DynamicArray', predicate: Callable[[Optional[int]],
                                                      bool]) -> 'DynamicArray':
     """
     External functions for filter() use in unit testing
