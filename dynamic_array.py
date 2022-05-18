@@ -145,7 +145,7 @@ class DynamicArray(object):
             left += 1
         return new_dynamic
 
-    def filter(self, predicate: Callable[[Optional[int]],
+    def filter(self, predicate: Callable[[int],
                                          bool]) -> 'DynamicArray':
         """
         Filter the array by specific predicate
@@ -303,7 +303,7 @@ def reverse(self: 'DynamicArray') -> 'DynamicArray':
     return self.reverse()
 
 
-def filter(self: 'DynamicArray', predicate: Callable[[Optional[int]],
+def filter(self: 'DynamicArray', predicate: Callable[[int],
                                                      bool]) -> 'DynamicArray':
     """
     External functions for filter() use in unit testing
