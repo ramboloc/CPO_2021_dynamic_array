@@ -4,7 +4,7 @@ import copy
 
 class DArrayIterator(object):
 
-    def __init__(self, lst: List[int]):
+    def __init__(self, lst: List[Optional[int]]):
         self.__index = -1
         self.__chunk: List[int] = []
         for i in lst:
@@ -16,7 +16,7 @@ class DArrayIterator(object):
         """Determine whether the iterator still has elements"""
         return self.__index < self.__size - 1
 
-    def __next__(self) -> Optional[int]:
+    def __next__(self) -> int:
         """
         Returns the current element of the iterator
         :return:current element
