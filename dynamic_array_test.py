@@ -10,7 +10,7 @@ from dynamic_array import filter, map, DynamicArray
 
 class TestDynamicArray(unittest.TestCase):
 
-    def test_api(self):
+    def test_api(self) -> None:
         empty = empty_()
         l1 = cons(cons(empty, 1), None)
         l2 = cons(cons(empty, None), 1)
@@ -48,11 +48,11 @@ class TestDynamicArray(unittest.TestCase):
         self.assertEqual(lst, [None])
 
     @given(st.lists(st.integers()))
-    def test_length(self, a):
+    def test_length(self, a) -> None:
         b = from_list(a)
         self.assertEqual(length(b), len(a))
 
-    def test_reverse(self):
+    def test_reverse(self) -> None:
         a = [2, 4, 1, 4, 9]
         b = from_list(a)
         self.assertEqual(str(reverse(b)), '[9, 4, 1, 4, 2]')
@@ -79,14 +79,14 @@ class TestDynamicArray(unittest.TestCase):
         self.assertEqual(to_list(filter(arr, lambda x: x % 3 != 0)), result)
 
     @given(st.lists(st.integers()))
-    def test_map(self, a: List[int]):
+    def test_map(self, a: List[int]) -> None:
         from builtins import map as gt_map
         arr1: 'DynamicArray' = from_list(a)
         result = list(gt_map(lambda x: x ** 3, a))
         self.assertEqual(to_list(map(arr1, lambda x: x ** 3)), result)
 
     @given(st.lists(st.integers()), st.integers())
-    def test_reduce(self, a: List[int], b: int):
+    def test_reduce(self, a: List[int], b: int) -> None:
         arr = from_list(a)
         if arr.length() == 0:
             self.assertEqual(b, reduce(arr, lambda x, y: x + y, b))
@@ -97,7 +97,7 @@ class TestDynamicArray(unittest.TestCase):
             result = gt_reduce(lambda x, y: x + y, a, b)
             self.assertEqual(reduce(arr, lambda x, y: x + y, b), result)
 
-    def test_iterator(self):
+    def test_iterator(self) -> None:
         x: List[Optional[int]] = [2, 4, 6]
         arr = from_list(x)
         t = []
@@ -122,7 +122,7 @@ class TestDynamicArray(unittest.TestCase):
            st.lists(st.integers()),
            st.lists(st.integers()))
     def test_monoid(self, a: List[Optional[int]], b: List[Optional[int]],
-                    c: List[Optional[int]]):
+                    c: List[Optional[int]]) -> None:
         arr1 = from_list(a)
         arr2 = from_list(b)
         arr3 = from_list(c)
@@ -130,7 +130,7 @@ class TestDynamicArray(unittest.TestCase):
                          to_list(concat(arr1, concat(arr2, arr3))))
 
     @given(st.lists(st.integers()))
-    def test_monoid_identity(self, lst: List[Optional[int]]):
+    def test_monoid_identity(self, lst: List[Optional[int]]) -> None:
         a = from_list(lst)
         self.assertEqual(concat(empty_(), a), a)
         self.assertEqual(concat(a, empty_()), a)
