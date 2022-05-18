@@ -183,10 +183,9 @@ class DynamicArray(object):
         if self.size() == 0:
             return state
         for element in self.__chunk:
-            if element is not None:
-                state = function(state, element)
-            else:
-                break
+            if not isinstance(element, int):
+                raise StopIteration("element must be int")
+            state = function(state, element)
         return state
 
     def find(self, p: Callable[[int], bool]) -> Sequence:
@@ -197,8 +196,8 @@ class DynamicArray(object):
         """
         lst: List[int] = []
         for k in self.__chunk:
-            if k is None:
-                break
+            if not isinstance(k, int):
+                raise StopIteration("element must be int")
             if p(k):
                 lst.append(k)
         return lst
