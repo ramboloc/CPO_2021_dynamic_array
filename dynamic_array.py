@@ -1,4 +1,4 @@
-from typing import Callable, Optional, Any, List, Sequence
+from typing import Callable, Optional, Any, List
 import copy
 
 
@@ -188,16 +188,14 @@ class DynamicArray(object):
             state = function(state, element)
         return state
 
-    def find(self, p: Callable[[int], bool]) -> Sequence:
+    def find(self, p: Callable[[int], bool]) -> List[int]:
         """
         find all element in the dynamic array in condition p
         :param p: Screening conditions
         :return: a list contain all element in condition p
         """
         lst: List[int] = []
-        for k in self.__chunk:
-            if not isinstance(k, int):
-                raise StopIteration("element must be int")
+        for k in self.iterator():
             if p(k):
                 lst.append(k)
         return lst
@@ -216,12 +214,12 @@ class DynamicArray(object):
                 return False
         return True
 
-    def __str__(self):
+    def __str__(self) -> str:
         """Return description information"""
         return str(self.to_list())
 
 
-def from_list(lst: Sequence) -> 'DynamicArray':
+def from_list(lst: List[Optional[int]]) -> 'DynamicArray':
     """
     Convert list to dynamic array
     :param lst:
@@ -329,7 +327,7 @@ def reduce(self: 'DynamicArray', function: Callable[[int,
 
 
 def find(self: 'DynamicArray', p: Callable[[int], bool]) \
-        -> Sequence:
+        -> List[int]:
     """
     External functions for find() use in unit testing
     """

@@ -1,5 +1,5 @@
 import unittest
-from typing import Sequence
+from typing import Sequence, List, Optional
 
 from hypothesis import given
 import hypothesis.strategies as st
@@ -62,7 +62,7 @@ class TestDynamicArray(unittest.TestCase):
         self.assertEqual(to_list(from_list(a)), a)
 
     def test_find(self) -> None:
-        a: Sequence = [2, 4, 4, 9, 5]
+        a: List[Optional[int]] = [2, 4, 4, 9, 5]
         arr = from_list(a)
         self.assertEqual([], find(arr, lambda x: x is None))
         self.assertEqual([9], find(arr, lambda x: x % 3 == 0))
@@ -70,7 +70,7 @@ class TestDynamicArray(unittest.TestCase):
         self.assertEqual([9], find(arr, lambda x: x == 9))
 
     @given(st.lists(st.integers()))
-    def test_filter(self, a: Sequence) -> None:
+    def test_filter(self, a: List[Optional[int]]) -> None:
         from builtins import filter as gt_filter
         arr = from_list(a)
         result = list(gt_filter(lambda x: x % 3 == 0, a))
@@ -79,14 +79,14 @@ class TestDynamicArray(unittest.TestCase):
         self.assertEqual(to_list(filter(arr, lambda x: x % 3 != 0)), result)
 
     @given(st.lists(st.integers()))
-    def test_map(self, a: Sequence):
+    def test_map(self, a: List[Optional[int]]):
         from builtins import map as gt_map
         arr1: 'DynamicArray' = from_list(a)
         result = list(gt_map(lambda x: x ** 3, a))
         self.assertEqual(to_list(map(arr1, lambda x: x ** 3)), result)
 
     @given(st.lists(st.integers()), st.integers())
-    def test_reduce(self, a: Sequence, b: int):
+    def test_reduce(self, a: List[Optional[int]], b: int):
         arr = from_list(a)
         if arr.length() == 0:
             self.assertEqual(b, reduce(arr, lambda x, y: x + y, b))
@@ -98,7 +98,7 @@ class TestDynamicArray(unittest.TestCase):
             self.assertEqual(reduce(arr, lambda x, y: x + y, b), result)
 
     def test_iterator(self):
-        x: Sequence = [2, 4, 6]
+        x: List[Optional[int]] = [2, 4, 6]
         arr = from_list(x)
         t = []
         try:
@@ -120,7 +120,7 @@ class TestDynamicArray(unittest.TestCase):
     @given(st.lists(st.integers()),
            st.lists(st.integers()),
            st.lists(st.integers()))
-    def test_monoid(self, a: Sequence, b: Sequence, c: Sequence):
+    def test_monoid(self, a: List[Optional[int]], b: List[Optional[int]], c:  List[Optional[int]]):
         arr1 = from_list(a)
         arr2 = from_list(b)
         arr3 = from_list(c)
@@ -128,7 +128,7 @@ class TestDynamicArray(unittest.TestCase):
                          to_list(concat(arr1, concat(arr2, arr3))))
 
     @given(st.lists(st.integers()))
-    def test_monoid_identity(self, lst: Sequence):
+    def test_monoid_identity(self, lst: List[Optional[int]]):
         a = from_list(lst)
         self.assertEqual(concat(empty_(), a), a)
         self.assertEqual(concat(a, empty_()), a)
