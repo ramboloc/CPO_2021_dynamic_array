@@ -19,7 +19,6 @@
 * `member(self, value)`: Determines whether the given value is a
   member of the array.
 * `reverse(self)`:  Reverse the array.
-* `intersection(self, pos, value)`: Add an element into the array
   at specified position.
 * `to_list(self)`: Transform the array to a list.
 * `from_list(lst)`: Convert list to dynamic array.
@@ -53,8 +52,16 @@
 
 ## Design notes
 
+* data type: the data type in data structure is int.
+* `empty()`: monoid, is the DynamicArray with `size`=`capacity`=0, and chunk is []
+* `iterator`: when we transform data structure to iterator, only data which not Node we be
+  put in iterator.
+* `cons`: when we call cons() to add element which is None, we will do nothing.
+
 ### Compare mutable and immutable implementation
 
+* Immutable data structure, like str type, we can use the method in data structure,
+  but the data structure will not be change after you call the method.
 * A mutable collection can be updated or extended in place. This means you can change,
   add, or remove elements of a collection as a side effect. *Immutable* collections,
   by contrast, never change. You have still operations that simulate additions,
