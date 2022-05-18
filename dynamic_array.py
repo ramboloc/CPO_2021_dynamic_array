@@ -312,7 +312,7 @@ def filter(self: 'DynamicArray', predicate: Callable[[int],
     return self.filter(predicate)
 
 
-def map(self: 'DynamicArray', function: Callable[[Any], int]) \
+def map(self: 'DynamicArray', function: Callable[[int], int]) \
         -> 'DynamicArray':
     """
     External functions for map() use in unit testing
