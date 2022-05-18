@@ -73,9 +73,9 @@ class TestDynamicArray(unittest.TestCase):
     def test_filter(self, a: List[Optional[int]]) -> None:
         from builtins import filter as gt_filter
         arr = from_list(a)
-        result = list(gt_filter(lambda x: x % 3 == 0, a))
+        result = list(gt_filter(lambda x: x % 3 == 0, arr.iterator()))
         self.assertEqual(to_list(filter(arr, lambda x: x % 3 == 0)), result)
-        result = list(gt_filter(lambda x: x % 3 != 0, a))
+        result = list(gt_filter(lambda x: x % 3 != 0, arr.iterator()))
         self.assertEqual(to_list(filter(arr, lambda x: x % 3 != 0)), result)
 
     @given(st.lists(st.integers()))
