@@ -54,8 +54,8 @@
 
 * data type: the data type in data structure is int.
 * `empty()`: monoid, is the DynamicArray with `size`=`capacity`=0, and chunk is [].
-* `iterator`: when we transform data structure to iterator, only data which not 
-  Node we be put in iterator.
+* `iterator`: when we transform data structure to iterator, only data which not
+   Node we be put in iterator.
 * `cons`: when we call cons() to add element which is None, we will do nothing.
 
 ### Compare mutable and immutable implementation
