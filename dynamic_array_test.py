@@ -34,8 +34,8 @@ class TestDynamicArray(unittest.TestCase):
         self.assertFalse(member(l1, 2))
         self.assertEqual(str(l1), "[1, None]")
         self.assertEqual(to_list(l1), [1, None])
-        self.assertEqual(to_list(l1), to_list(from_list([1, None])))
-        self.assertEqual(to_list(concat(l1, l2)), to_list(from_list([1, 1])))
+        self.assertEqual(l1, from_list([1, None]))
+        self.assertEqual(concat(l1, l2), from_list([1, 1]))
         buf = []
         for e in l1.iterator():
             buf.append(e)
