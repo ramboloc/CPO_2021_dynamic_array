@@ -341,10 +341,3 @@ def next(self: 'DArrayIterator') -> Optional[int]:
     External functions for __next__() in DArrayIterator use in unit testing
     """
     return self.__next__()
-
-
-ls = [1, 2, 3, 1, None, None]
-s = from_list(ls)
-for k in s.iterator():
-    print(k)
-
