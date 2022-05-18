@@ -39,13 +39,13 @@ class TestDynamicArray(unittest.TestCase):
         buf = []
         for e in l1.iterator():
             buf.append(e)
-        self.assertEqual(buf, [1, None])
-        lst = to_list(l1) + to_list(l2)
+        self.assertEqual(buf, [1])
+        lst = to_list(l2) + to_list(l1)
         for e in l1.iterator():
             lst.remove(e)
         for e in l2.iterator():
             lst.remove(e)
-        self.assertEqual(lst, [])
+        self.assertEqual(lst, [None])
 
     @given(st.lists(st.integers()))
     def test_length(self, a):
