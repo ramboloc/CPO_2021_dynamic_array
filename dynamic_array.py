@@ -156,7 +156,6 @@ class DynamicArray(object):
         for i in self.iterator():
             if predicate(i):
                 res.append(i)
-        res.reverse()
         return from_list(res)
 
     def map(self, function: Callable[[Optional[int]], int]) -> 'DynamicArray':
@@ -344,9 +343,8 @@ def next(self: 'DArrayIterator') -> Optional[int]:
     return self.__next__()
 
 
-ls = [1, 1, 1, 1, None, None]
+ls = [1, 2, 3, 1, None, None]
 s = from_list(ls)
 for k in s.iterator():
     print(k)
-for u in ls:
-    print(u)
+
