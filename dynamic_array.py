@@ -9,10 +9,7 @@ class DArrayIterator(object):
 
     def __init__(self, lst: List[Optional[int]]):
         self.__index = -1
-        self.__chunk: List[int] = []
-        for i in lst:
-            if i is not None:
-                self.__chunk += [i]
+        self.__chunk: List[int] = lst
         self.__size = self.__chunk.__len__()
 
     def hasNext(self) -> bool:
@@ -73,8 +70,6 @@ class DynamicArray(object):
     def cons(self, element: Optional[int]) -> 'DynamicArray':
         """
         Add an element at the end of the array
-        If the element is None, it means expand capacity:
-            capacity+=1
         If the dynamic array in condition (size=capacity)
             Expand capacity
             Add element from tail
@@ -92,11 +87,8 @@ class DynamicArray(object):
             else:
                 raise IndexError("Bad capacity: " +
                                  str(self.__capacity) + "<0")
-        if element is None:
-            pass
-        else:
-            new_dynamic.__chunk[new_dynamic.__size] = element
-            new_dynamic.__size += 1
+        new_dynamic.__chunk[new_dynamic.__size] = element
+        new_dynamic.__size += 1
         return new_dynamic
 
     def remove(self, pos: int) -> 'DynamicArray':
@@ -139,7 +131,7 @@ class DynamicArray(object):
         """
         new_dynamic = copy.deepcopy(self)
         left = 0
-        right = self.__size - 1
+        right = self.__capacity - 1
         while left < right:
             t = new_dynamic.__chunk[right]
             new_dynamic.__chunk[right] = new_dynamic.__chunk[left]
@@ -202,6 +194,11 @@ class DynamicArray(object):
             if p(k):
                 lst.append(k)
         return lst
+
+    def get_id(self):
+        print(id(self.__chunk))
+        print(id(self.__size))
+        print(id(self.__capacity))
 
     def __eq__(self, other: object) -> bool:
         """
@@ -342,3 +339,10 @@ def next(self: 'DArrayIterator') -> Optional[int]:
     External functions for __next__() in DArrayIterator use in unit testing
     """
     return self.__next__()
+
+
+dy = DynamicArray(1)
+print(id(dy))
+dy = DynamicArray(2)
+print(id(dy))
+
