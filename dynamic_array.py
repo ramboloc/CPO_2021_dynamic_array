@@ -32,7 +32,8 @@ class DArrayIterator(object):
 class DynamicArray(object):
     """Implementation of immutable dynamic array"""
 
-    def __init__(self, lst: List[Optional[int]] = None, capacity: int = -1, grow_factor: int = 2):
+    def __init__(self, lst: List[Optional[int]] = None, capacity: int = -1,
+                 grow_factor: int = 2):
         """
         Dynamic array initialization
         :param capacity: size of elements that can be included
@@ -131,7 +132,8 @@ def cons(element: Optional[int], self: 'DynamicArray') -> 'DynamicArray':
     res.append(element)
     new_capacity: int = self.capacity()
     if self.size() == self.capacity():
-        new_capacity = new_capacity * self.grow_factor() if self.size()>0 else 1
+        new_capacity = new_capacity * self.grow_factor() \
+            if self.size() > 0 else 1
     new_dynamic = DynamicArray(res, new_capacity, self.grow_factor())
     return new_dynamic
 
@@ -166,7 +168,7 @@ def remove(self: 'DynamicArray', pos: int) -> 'DynamicArray':
     return DynamicArray(res, self.capacity(), self.grow_factor())
 
 
-def length(self:'DynamicArray') -> int:
+def length(self: 'DynamicArray') -> int:
     """ Return the capacity of array """
     return self.capacity()
 
@@ -214,7 +216,8 @@ def filter_(self: 'DynamicArray', predicate: Callable[[Optional[int]],
     return DynamicArray(res, self.capacity(), self.grow_factor())
 
 
-def map_(self: 'DynamicArray', function: Callable[[Optional[int]], int]) -> 'DynamicArray':
+def map_(self: 'DynamicArray', function: Callable[[Optional[int]],
+                                                  int]) -> 'DynamicArray':
     """
     Applies a function to each element in a dynamic array
     :param self: DynamicArray
@@ -265,25 +268,3 @@ def next(self: 'DArrayIterator') -> Optional[int]:
     External functions for __next__() in DArrayIterator use in unit testing
     """
     return self.__next__()
-
-
-ls = [None, None]
-tls = [1, 2, 1, 3, 2]
-tls.pop(2)
-print(tls)
-dy = DynamicArray(ls)
-dy4 = DynamicArray(ls)
-print(dy==dy4)
-print(to_list(dy))
-dy = cons(1, dy)
-print(to_list(dy))
-dy2 = DynamicArray(to_list(dy), dy.capacity())
-print(dy == dy2)
-dy3 = concat(dy, dy2)
-dy3 = remove(dy3, 2)
-print(to_list(dy3))
-
-a = from_list([0])
-b=concat(empty_(), a)
-c=concat(a, empty_())
-print(c==b)
