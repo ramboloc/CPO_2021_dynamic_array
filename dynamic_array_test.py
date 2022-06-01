@@ -64,10 +64,9 @@ class TestDynamicArray(unittest.TestCase):
     def test_find(self) -> None:
         a: List[int] = [2, 4, 4, 9, 5]
         arr = from_list(a)
-        self.assertEqual([], find(arr, lambda x: x is None))
-        self.assertEqual([9], find(arr, lambda x: x % 3 == 0))
-        self.assertEqual([2, 4, 4, 5], find(arr, lambda x: x % 3 != 0))
-        self.assertEqual([9], find(arr, lambda x: x == 9))
+        self.assertEqual([9], find(arr, lambda x: (x % 3 == 0) if x is not None else False))
+        self.assertEqual([2, 4, 4, 5], find(arr, lambda x: (x % 3 != 0) if x is not None else False))
+        self.assertEqual([9], find(arr, lambda x: (x == 9) if x is not None else False))
 
     @given(st.lists(st.integers()))
     def test_filter(self, a: List[int]) -> None:
@@ -89,13 +88,13 @@ class TestDynamicArray(unittest.TestCase):
     def test_reduce(self, a: List[int], b: int) -> None:
         arr = from_list(a)
         if length(arr) == 0:
-            self.assertEqual(b, reduce(arr, lambda x, y: x + y, b))
+            self.assertEqual(b, reduce(arr, lambda x, y: (x + y) if y is not None else 1, b))
         else:
             from functools import reduce as gt_reduce
             result = gt_reduce(lambda x, y: x + y, a, b)
-            self.assertEqual(reduce(arr, lambda x, y: x + y, b), result)
+            self.assertEqual(reduce(arr, lambda x, y: (x + y) if y is not None else 1, b), result)
             result = gt_reduce(lambda x, y: x + y, a, b)
-            self.assertEqual(reduce(arr, lambda x, y: x + y, b), result)
+            self.assertEqual(reduce(arr, lambda x, y: (x + y) if y is not None else 1, b), result)
 
     def test_empty(self) -> None:
         a = empty_()
