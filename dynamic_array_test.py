@@ -76,11 +76,15 @@ class TestDynamicArray(unittest.TestCase):
         result = list(gt_filter(lambda x: x % 3 == 0, a))
         self.assertEqual(
             to_list(filter_(
-                arr, lambda x: (x % 3 == 0) if x is not None else False)), result)
+                arr,
+                lambda x: (x % 3 == 0) if x is not None else False)),
+            result)
         result = list(gt_filter(lambda x: x % 3 != 0, a))
         self.assertEqual(
             to_list(filter_(
-                arr, lambda x: (x % 3 != 0) if x is not None else False)), result)
+                arr,
+                lambda x: (x % 3 != 0) if x is not None else False)),
+            result)
 
     @given(st.lists(st.integers()))
     def test_map(self, a: List[int]) -> None:
