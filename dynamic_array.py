@@ -8,14 +8,14 @@ class DArrayIterator(object):
 
     def __init__(self, lst: List[Optional[int]], array_size: int):
         self.__index = -1
-        self.__chunk: List[int] = lst
+        self.__chunk: List[Optional[int]] = lst
         self.__size = array_size
 
     def hasNext(self) -> bool:
         """Determine whether the iterator still has elements"""
         return self.__index < self.__size - 1
 
-    def __next__(self) -> int:
+    def __next__(self) -> Optional[int]:
         """
         Returns the current element of the iterator
         :return:current element
@@ -32,7 +32,8 @@ class DArrayIterator(object):
 class DynamicArray(object):
     """Implementation of immutable dynamic array"""
 
-    def __init__(self, lst: List[Optional[int]] = None, capacity: int = -1, grow_factor: int = 2):
+    def __init__(self, lst: List[Optional[int]] = None, capacity: int = -1,
+                 grow_factor: int = 2):
         """
         Dynamic array initialization
         :param capacity: size of elements that can be included
@@ -40,16 +41,15 @@ class DynamicArray(object):
         when the capacity of the dynamic array is insufficient each time
         """
         self.__grow_factor = grow_factor
+        self.__size = 0
+        self.__capacity = 0
+        self.__chunk: List[Optional[int]] = []
         if lst is not None:
             self.__size = lst.__len__()
             if capacity == -1:
                 capacity = lst.__len__()
             self.__capacity = capacity
-            self.__chunk: List[Optional[int]] = lst
-        else:
-            self.__size = 0
-            self.__capacity = 0
-            self.__chunk: List[Optional[int]] = []
+            self.__chunk = lst
 
     def __eq__(self, other: object) -> bool:
         """
@@ -88,7 +88,7 @@ class DynamicArray(object):
         """ return the capacity of DynamicArray """
         return self.__capacity
 
-    def getByIndex(self, pos: int) -> int:
+    def getByIndex(self, pos: int) -> Optional[int]:
         """ get element by index """
         return self.__chunk[pos]
 
@@ -109,7 +109,7 @@ def to_list(self, index: int = 0) -> List[Optional[int]]:
     return lst
 
 
-def from_list(lst: UnionList) -> 'DynamicArray':
+def from_list(lst: Optional[List[Optional[int]]]) -> 'DynamicArray':
     """
     Convert list to dynamic array
     :param lst:
@@ -131,7 +131,8 @@ def cons(element: Optional[int], self: 'DynamicArray') -> 'DynamicArray':
     res.append(element)
     new_capacity: int = self.capacity()
     if self.size() == self.capacity():
-        new_capacity = new_capacity * self.grow_factor() if self.size()>0 else 1
+        new_capacity = new_capacity * self.grow_factor() \
+            if self.size() > 0 else 1
     new_dynamic = DynamicArray(res, new_capacity, self.grow_factor())
     return new_dynamic
 
@@ -166,7 +167,7 @@ def remove(self: 'DynamicArray', pos: int) -> 'DynamicArray':
     return DynamicArray(res, self.capacity(), self.grow_factor())
 
 
-def length(self:'DynamicArray') -> int:
+def length(self: 'DynamicArray') -> int:
     """ Return the capacity of array """
     return self.capacity()
 
@@ -214,7 +215,8 @@ def filter_(self: 'DynamicArray', predicate: Callable[[Optional[int]],
     return DynamicArray(res, self.capacity(), self.grow_factor())
 
 
-def map_(self: 'DynamicArray', function: Callable[[Optional[int]], int]) -> 'DynamicArray':
+def map_(self: 'DynamicArray', function: Callable[[Optional[int]],
+                                                  int]) -> 'DynamicArray':
     """
     Applies a function to each element in a dynamic array
     :param self: DynamicArray
@@ -241,7 +243,8 @@ def reduce(self, function: Callable[[int, Optional[int]], int],
     return state
 
 
-def find(self: 'DynamicArray', p: Callable[[Optional[int]], bool]) -> List[int]:
+def find(self: 'DynamicArray', p: Callable[[Optional[int]], bool]) \
+        -> List[int]:
     """
     find all element in the dynamic array in condition p
     :param self:
@@ -265,25 +268,3 @@ def next(self: 'DArrayIterator') -> Optional[int]:
     External functions for __next__() in DArrayIterator use in unit testing
     """
     return self.__next__()
-
-
-ls = [None, None]
-tls = [1, 2, 1, 3, 2]
-tls.pop(2)
-print(tls)
-dy = DynamicArray(ls)
-dy4 = DynamicArray(ls)
-print(dy==dy4)
-print(to_list(dy))
-dy = cons(1, dy)
-print(to_list(dy))
-dy2 = DynamicArray(to_list(dy), dy.capacity())
-print(dy == dy2)
-dy3 = concat(dy, dy2)
-dy3 = remove(dy3, 2)
-print(to_list(dy3))
-
-a = from_list([0])
-b=concat(empty_(), a)
-c=concat(a, empty_())
-print(c==b)
