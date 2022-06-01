@@ -15,7 +15,7 @@ class DArrayIterator(object):
         """Determine whether the iterator still has elements"""
         return self.__index < self.__size - 1
 
-    def __next__(self) -> int:
+    def __next__(self) -> Optional[int]:
         """
         Returns the current element of the iterator
         :return:current element
@@ -109,7 +109,7 @@ def to_list(self, index: int = 0) -> List[Optional[int]]:
     return lst
 
 
-def from_list(lst: Optional[List[int]]) -> 'DynamicArray':
+def from_list(lst: Optional[List[Optional[int]]]) -> 'DynamicArray':
     """
     Convert list to dynamic array
     :param lst:
