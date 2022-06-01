@@ -8,7 +8,7 @@ class DArrayIterator(object):
 
     def __init__(self, lst: List[Optional[int]], array_size: int):
         self.__index = -1
-        self.__chunk: List[int] = lst
+        self.__chunk: List[Optional[int]] = lst
         self.__size = array_size
 
     def hasNext(self) -> bool:
@@ -41,16 +41,15 @@ class DynamicArray(object):
         when the capacity of the dynamic array is insufficient each time
         """
         self.__grow_factor = grow_factor
+        self.__size = 0
+        self.__capacity = 0
+        self.__chunk: List[Optional[int]] = []
         if lst is not None:
             self.__size = lst.__len__()
             if capacity == -1:
                 capacity = lst.__len__()
             self.__capacity = capacity
-            self.__chunk: List[Optional[int]] = lst
-        else:
-            self.__size = 0
-            self.__capacity = 0
-            self.__chunk: List[Optional[int]] = []
+            self.__chunk = lst
 
     def __eq__(self, other: object) -> bool:
         """
@@ -89,7 +88,7 @@ class DynamicArray(object):
         """ return the capacity of DynamicArray """
         return self.__capacity
 
-    def getByIndex(self, pos: int) -> int:
+    def getByIndex(self, pos: int) -> Optional[int]:
         """ get element by index """
         return self.__chunk[pos]
 
@@ -110,7 +109,7 @@ def to_list(self, index: int = 0) -> List[Optional[int]]:
     return lst
 
 
-def from_list(lst: UnionList) -> 'DynamicArray':
+def from_list(lst: Optional[List[int]]) -> 'DynamicArray':
     """
     Convert list to dynamic array
     :param lst:
