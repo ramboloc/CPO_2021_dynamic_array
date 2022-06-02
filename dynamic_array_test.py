@@ -50,7 +50,7 @@ class TestDynamicArray(unittest.TestCase):
     @given(st.lists(st.integers()))
     def test_length(self, a: Optional[List[Optional[int]]]) -> None:
         b = from_list(a)
-        self.assertEqual(length(b), len(a))
+        self.assertEqual(length(b), a.__len__())
 
     def test_reverse(self) -> None:
         a: Optional[List[Optional[int]]] = [2, 4, 1, 4, 9]
@@ -79,7 +79,8 @@ class TestDynamicArray(unittest.TestCase):
     def test_filter(self, a: Optional[List[Optional[int]]]) -> None:
         from builtins import filter as gt_filter
         arr = from_list(a)
-        result = list(gt_filter(lambda x: x % 3 == 0, a))
+        result = list(gt_filter(
+            lambda x: x % 3 == 0 if x is not None else False, a))
         self.assertEqual(
             to_list(filter_(
                 arr,
