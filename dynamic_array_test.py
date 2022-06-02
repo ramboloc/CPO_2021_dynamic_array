@@ -86,7 +86,8 @@ class TestDynamicArray(unittest.TestCase):
                 arr,
                 lambda x: (x % 3 == 0) if x is not None else False)),
             result)
-        result = list(gt_filter(lambda x: x % 3 != 0, a))
+        result = list(gt_filter(
+            lambda x: x % 3 != 0 if x is not None else False, a))
         self.assertEqual(
             to_list(filter_(
                 arr,
