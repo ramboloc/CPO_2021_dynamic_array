@@ -58,7 +58,8 @@ class TestDynamicArray(unittest.TestCase):
         self.assertEqual(str(reverse(b)), '[9, 4, 1, 4, 2]')
 
     @given(st.lists(st.integers()))
-    def test_from_list_to_list_equality(self, a: Optional[List[Optional[int]]]) -> None:
+    def test_from_list_to_list_equality(
+            self, a: Optional[List[Optional[int]]]) -> None:
         self.assertEqual(to_list(from_list(a)), a)
 
     def test_find(self) -> None:
