@@ -64,8 +64,9 @@ class TestDynamicArray(unittest.TestCase):
     def test_find(self) -> None:
         a: List[int] = [2, 4, 4, 9, 5]
         arr = from_list(a)
-        self.assertEqual([9],
-                         find(arr, lambda x: (x % 3 == 0) if x is not None else False))
+        self.assertEqual(
+            [9],
+            find(arr, lambda x: (x % 3 == 0) if x is not None else False))
         self.assertEqual(
             [2, 4, 4, 5],
             find(arr, lambda x: (x % 3 != 0) if x is not None else False))
