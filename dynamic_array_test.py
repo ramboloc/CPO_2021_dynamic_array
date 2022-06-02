@@ -104,8 +104,9 @@ class TestDynamicArray(unittest.TestCase):
     def test_reduce(self, a: List[int], b: int) -> None:
         arr = from_list(a)
         if length(arr) == 0:
-            self.assertEqual(b,
-                reduce(arr, lambda x, y: (x + y) if y is not None else 1, b))
+            self.assertEqual(
+                b, reduce(
+                    arr, lambda x, y: (x + y) if y is not None else 1, b))
         else:
             from functools import reduce as gt_reduce
             result = gt_reduce(lambda x, y: x + y, a, b)
