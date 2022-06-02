@@ -32,7 +32,7 @@ class DArrayIterator(object):
 class DynamicArray(object):
     """Implementation of immutable dynamic array"""
 
-    def __init__(self, lst: List[Optional[int]] = None, capacity: int = -1,
+    def __init__(self, lst: Optional[List[Optional[int]]] = None, capacity: int = -1,
                  grow_factor: int = 2):
         """
         Dynamic array initialization

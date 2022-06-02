@@ -48,21 +48,21 @@ class TestDynamicArray(unittest.TestCase):
         self.assertEqual(lst, [])
 
     @given(st.lists(st.integers()))
-    def test_length(self, a: List[int]) -> None:
+    def test_length(self, a: Optional[List[Optional[int]]]) -> None:
         b = from_list(a)
         self.assertEqual(length(b), len(a))
 
     def test_reverse(self) -> None:
-        a = [2, 4, 1, 4, 9]
+        a: Optional[List[Optional[int]]] = [2, 4, 1, 4, 9]
         b = from_list(a)
         self.assertEqual(str(reverse(b)), '[9, 4, 1, 4, 2]')
 
     @given(st.lists(st.integers()))
-    def test_from_list_to_list_equality(self, a: List[int]) -> None:
+    def test_from_list_to_list_equality(self, a: Optional[List[Optional[int]]]) -> None:
         self.assertEqual(to_list(from_list(a)), a)
 
     def test_find(self) -> None:
-        a: List[int] = [2, 4, 4, 9, 5]
+        a: Optional[List[Optional[int]]] = [2, 4, 4, 9, 5]
         arr = from_list(a)
         self.assertEqual(
             [9],
@@ -75,7 +75,7 @@ class TestDynamicArray(unittest.TestCase):
             find(arr, lambda x: (x == 9) if x is not None else False))
 
     @given(st.lists(st.integers()))
-    def test_filter(self, a: List[int]) -> None:
+    def test_filter(self, a: Optional[List[Optional[int]]]) -> None:
         from builtins import filter as gt_filter
         arr = from_list(a)
         result = list(gt_filter(lambda x: x % 3 == 0, a))
@@ -92,7 +92,7 @@ class TestDynamicArray(unittest.TestCase):
             result)
 
     @given(st.lists(st.integers()))
-    def test_map(self, a: List[int]) -> None:
+    def test_map(self, a: Optional[List[Optional[int]]]) -> None:
         from builtins import map as gt_map
         arr1: 'DynamicArray' = from_list(a)
         result = list(gt_map(lambda x: x ** 3, a))
@@ -101,7 +101,7 @@ class TestDynamicArray(unittest.TestCase):
                 arr1, lambda x: x ** 3 if x is not None else x)), result)
 
     @given(st.lists(st.integers()), st.integers())
-    def test_reduce(self, a: List[int], b: int) -> None:
+    def test_reduce(self, a: Optional[List[Optional[int]]], b: int) -> None:
         arr = from_list(a)
         if length(arr) == 0:
             self.assertEqual(
@@ -118,7 +118,7 @@ class TestDynamicArray(unittest.TestCase):
 
     def test_empty(self) -> None:
         a = empty_()
-        k: List[Optional[int]] = []
+        k: Optional[List[Optional[int]]] = []
         b = from_list(k)
         self.assertEqual(a, b)
 
