@@ -68,7 +68,7 @@ class DynamicArray(object):
         """Return description information"""
         return str(to_list(self))
 
-    def __iter__(self):
+    def __iter__(self) -> DArrayIterator:
         """
         According to the built-in list chunk convert a dynamic array to
         an iterator
@@ -91,12 +91,12 @@ class DynamicArray(object):
         """ get element by index """
         return self.__chunk[pos]
 
-    def member(self, element) -> bool:
+    def member(self, element: Optional[int]) -> bool:
         """ return ture if DynamicArray contain element """
         return self.__chunk.__contains__(element)
 
 
-def to_list(self, index: int = 0) -> List[Optional[int]]:
+def to_list(self: 'DynamicArray', index: int = 0) -> List[Optional[int]]:
     """
     Transform the array to a list
     Transform object: __chunk
@@ -171,7 +171,7 @@ def length(self: 'DynamicArray') -> int:
     return self.capacity()
 
 
-def size(self) -> int:
+def size(self: 'DynamicArray') -> int:
     """ Return the size of array """
     return self.size()
 
@@ -229,7 +229,7 @@ def map_(self: 'DynamicArray',
     return DynamicArray(res, self.capacity(), self.grow_factor())
 
 
-def reduce(self, function: Callable[[int, Optional[int]], int],
+def reduce(self: 'DynamicArray', function: Callable[[int, Optional[int]], int],
            initial_state: int = 0) -> int:
     """
     Apply function of two arguments cumulatively to the items of the array,
