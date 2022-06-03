@@ -98,7 +98,7 @@ class TestDynamicArray(unittest.TestCase):
     def test_map(self, a: List[Optional[int]]) -> None:
         from builtins import map as gt_map
         arr1: 'DynamicArray' = from_list(a)
-        result = list(gt_map(lambda x: x ** 3, a))
+        result = list(gt_map(lambda x: x ** 3 if x is not None else x, a))
         self.assertEqual(
             to_list(map_(
                 arr1, lambda x: x ** 3 if x is not None else x)), result)
@@ -112,12 +112,14 @@ class TestDynamicArray(unittest.TestCase):
                     arr, lambda x, y: (x + y) if y is not None else 1, b))
         else:
             from functools import reduce as gt_reduce
+            result = gt_reduce(
+                lambda x, y: x + y if y is not None else x + 1, a, b)
+            self.assertEqual(reduce(
+                arr,
+                lambda x, y: (x + y) if y is not None else x + 1, b), result)
             result = gt_reduce(lambda x, y: x + y, a, b)
             self.assertEqual(reduce(
-                arr, lambda x, y: (x + y) if y is not None else 1, b), result)
-            result = gt_reduce(lambda x, y: x + y, a, b)
-            self.assertEqual(reduce(
-                arr, lambda x, y: (x + y) if y is not None else 1, b), result)
+                arr, lambda x, y: (x + y) if y is not None else x + 1, b), result)
 
     def test_empty(self) -> None:
         a = empty_()

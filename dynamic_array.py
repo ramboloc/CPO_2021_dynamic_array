@@ -215,7 +215,7 @@ def filter_(self: 'DynamicArray', predicate: Callable[[Optional[int]],
 
 
 def map_(self: 'DynamicArray', function: Callable[[Optional[int]],
-                                                  int]) -> 'DynamicArray':
+                                                  Optional[int]]) -> 'DynamicArray':
     """
     Applies a function to each element in a dynamic array
     :param self: DynamicArray
