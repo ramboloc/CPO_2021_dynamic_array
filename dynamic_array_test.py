@@ -119,7 +119,8 @@ class TestDynamicArray(unittest.TestCase):
                 lambda x, y: (x + y) if y is not None else x + 1, b), result)
             result = gt_reduce(lambda x, y: x + y, a, b)
             self.assertEqual(reduce(
-                arr, lambda x, y: (x + y) if y is not None else x + 1, b), result)
+                arr,
+                lambda x, y: (x + y) if y is not None else x + 1, b), result)
 
     def test_empty(self) -> None:
         a = empty_()
