@@ -244,7 +244,7 @@ def reduce(self: 'DynamicArray', function: Callable[[int, Optional[int]], int],
 
 
 def find(self: 'DynamicArray', p: Callable[[Optional[int]], bool]) \
-        -> List[int]:
+        -> List[Optional[int]]:
     """
     find all element in the dynamic array in condition p
     :param self:
