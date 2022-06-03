@@ -117,7 +117,8 @@ class TestDynamicArray(unittest.TestCase):
             self.assertEqual(reduce(
                 arr,
                 lambda x, y: (x + y) if y is not None else x + 1, b), result)
-            result = gt_reduce(lambda x, y: x + y, a, b)
+            result = gt_reduce(
+                lambda x, y: x + y if y is not None else x + 1, a, b)
             self.assertEqual(reduce(
                 arr,
                 lambda x, y: (x + y) if y is not None else x + 1, b), result)
