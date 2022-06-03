@@ -243,7 +243,7 @@ def reduce(self: 'DynamicArray', function: Callable[[int, Optional[int]], int],
     return state
 
 
-def find(self: 'DynamicArray', p: Callable[[Optional[Optional[int]]], bool]) \
+def find(self: 'DynamicArray', p: Callable[[Optional[int]], bool]) \
         -> List[int]:
     """
     find all element in the dynamic array in condition p
@@ -251,7 +251,7 @@ def find(self: 'DynamicArray', p: Callable[[Optional[Optional[int]]], bool]) \
     :param p: Screening conditions
     :return: a list contain all element in condition p
     """
-    lst: List[int] = []
+    lst: List[Optional[int]] = []
     for k in self:
         if p(k):
             lst.append(k)
