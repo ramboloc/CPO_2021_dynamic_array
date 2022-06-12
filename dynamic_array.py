@@ -1,7 +1,4 @@
 from typing import Callable, Optional, List
-from typing import Union
-
-UnionList = Union[List[Optional[int]], List[int]]
 
 
 class DArrayIterator(object):
