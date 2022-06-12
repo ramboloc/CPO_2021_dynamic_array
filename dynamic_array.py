@@ -29,8 +29,8 @@ class DArrayIterator(object):
 class DynamicArray(object):
     """Implementation of immutable dynamic array"""
 
-    def __init__(self, lst: Optional[List[Optional[int]]] = None, capacity: int = -1,
-                 grow_factor: int = 2):
+    def __init__(self, lst: List[Optional[int]] = [],
+                 capacity: int = -1, grow_factor: int = 2):
         """
         Dynamic array initialization
         :param capacity: size of elements that can be included
@@ -40,13 +40,12 @@ class DynamicArray(object):
         self.__grow_factor = grow_factor
         self.__size = 0
         self.__capacity = 0
-        self.__chunk: List[Optional[int]] = []
+        self.__chunk: List[Optional[int]] = lst
         if lst is not None:
             self.__size = lst.__len__()
             if capacity == -1:
                 capacity = lst.__len__()
             self.__capacity = capacity
-            self.__chunk = lst
 
     def __eq__(self, other: object) -> bool:
         """
@@ -66,7 +65,7 @@ class DynamicArray(object):
         """Return description information"""
         return str(to_list(self))
 
-    def __iter__(self):
+    def __iter__(self) -> DArrayIterator:
         """
         According to the built-in list chunk convert a dynamic array to
         an iterator
@@ -89,12 +88,12 @@ class DynamicArray(object):
         """ get element by index """
         return self.__chunk[pos]
 
-    def member(self, element) -> bool:
+    def member(self, element: Optional[int]) -> bool:
         """ return ture if DynamicArray contain element """
         return self.__chunk.__contains__(element)
 
 
-def to_list(self, index: int = 0) -> List[Optional[int]]:
+def to_list(self: 'DynamicArray', index: int = 0) -> List[Optional[int]]:
     """
     Transform the array to a list
     Transform object: __chunk
@@ -106,7 +105,7 @@ def to_list(self, index: int = 0) -> List[Optional[int]]:
     return lst
 
 
-def from_list(lst: Optional[List[Optional[int]]]) -> 'DynamicArray':
+def from_list(lst: List[Optional[int]]) -> 'DynamicArray':
     """
     Convert list to dynamic array
     :param lst:
@@ -169,7 +168,7 @@ def length(self: 'DynamicArray') -> int:
     return self.capacity()
 
 
-def size(self) -> int:
+def size(self: 'DynamicArray') -> int:
     """ Return the size of array """
     return self.size()
 
@@ -212,8 +211,9 @@ def filter_(self: 'DynamicArray', predicate: Callable[[Optional[int]],
     return DynamicArray(res, self.capacity(), self.grow_factor())
 
 
-def map_(self: 'DynamicArray', function: Callable[[Optional[int]],
-                                                  int]) -> 'DynamicArray':
+def map_(self: 'DynamicArray',
+         function: Callable[[Optional[int]],
+                            Optional[int]]) -> 'DynamicArray':
     """
     Applies a function to each element in a dynamic array
     :param self: DynamicArray
@@ -226,7 +226,7 @@ def map_(self: 'DynamicArray', function: Callable[[Optional[int]],
     return DynamicArray(res, self.capacity(), self.grow_factor())
 
 
-def reduce(self, function: Callable[[int, Optional[int]], int],
+def reduce(self: 'DynamicArray', function: Callable[[int, Optional[int]], int],
            initial_state: int = 0) -> int:
     """
     Apply function of two arguments cumulatively to the items of the array,
@@ -241,14 +241,14 @@ def reduce(self, function: Callable[[int, Optional[int]], int],
 
 
 def find(self: 'DynamicArray', p: Callable[[Optional[int]], bool]) \
-        -> List[int]:
+        -> List[Optional[int]]:
     """
     find all element in the dynamic array in condition p
     :param self:
     :param p: Screening conditions
     :return: a list contain all element in condition p
     """
-    lst: List[int] = []
+    lst: List[Optional[int]] = []
     for k in self:
         if p(k):
             lst.append(k)

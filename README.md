@@ -52,14 +52,8 @@
 
 ## Design notes
 
-* dynamic array should not have None element for index<=size，and None element just
-   means the unallocated space. So None element can only exit in tail.
 * data type: the data type in data structure is int.
 * `empty()`: monoid, is the DynamicArray with `size`=`capacity`=0, and chunk is [].
-* `to_list()`: return the array chunk which contain None
-* `iterator`: when we transform data structure to iterator, only data which not
-   Node we be put in iterator.
-* `cons`: when we call cons() to add element which is None, we will do nothing.
 
 ### Compare mutable and immutable implementation
 
