@@ -146,13 +146,13 @@ class TestDynamicArray(unittest.TestCase):
         self.assertEqual(concat(empty_(), a), a)
         self.assertEqual(concat(a, empty_()), a)
 
-    def test_immutability(self) -> None:
-        a = from_list([1, 2, 3, 4, 5, 6, 7, 8, 3, 2])
+    @given(st.lists(st.integers()))
+    def test_immutability(self, lst: List[Optional[int]]) -> None:
+        a = from_list(lst)
         # do some operations
         cons(22, a)
-        remove(a, 8)
         reverse(a)
-        self.assertEqual(str(a), '[1, 2, 3, 4, 5, 6, 7, 8, 3, 2]')
+        self.assertEqual(str(a), str(lst))
 
 
 if __name__ == '__main__':
